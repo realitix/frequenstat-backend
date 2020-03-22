@@ -1,0 +1,20 @@
+Tracker\TicketBundle\Entity\Ticket:
+    properties:
+        name:
+            - NotBlank: 
+                message: Le titre du ticket ne peut pas être vide.
+        type:
+            - NotBlank: 
+                message: Le type de support n'a pas été sélectionné.
+            - Choice: 
+                choices: [1, 2]
+                message: Choisissez un type de support valide.
+        description:
+            - NotBlank:
+                message: La description du ticket ne peut pas être vide.
+                
+Tracker\TicketBundle\Entity\Message:
+    properties:
+        content:
+            - NotBlank: 
+                message: Le contenu du message ne peut pas être vide.

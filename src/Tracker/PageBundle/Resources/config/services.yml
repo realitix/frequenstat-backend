@@ -1,0 +1,7 @@
+parameters:
+#    tracker_page.example.class: Tracker\PageBundle\Example
+
+services:
+#    tracker_page.example:
+#        class: %tracker_page.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,39 @@
+<div class="row {% if validDates %}hidden{% endif %}" id="formInterval">
+    <div class="col-sm-12">
+        <div class="well">
+            <h1>Sélectionner l'intervalle</h1>
+	        <form class="smart-form" method="GET">
+	            <fieldset>
+	                <section class="col col-2">
+	                    <label class="select">
+	                        <select name="interval" id="selectInterval">
+	                            <option value="{{constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_24H')}}" {% if interval == constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_24H') %}selected="selected"{% endif %}>24H</option>
+	                            <option value="{{constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_7DAYS')}}" {% if interval == constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_7DAYS') %}selected="selected"{% endif %}>7 jours</option>
+	                            <option value="{{constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_1MONTH')}}" {% if interval == constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_1MONTH') %}selected="selected"{% endif %}>1 mois</option>
+	                            <option value="{{constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_CUSTOM')}}" {% if interval == constant('\\Tracker\\CaptureBundle\\Service\\CaptureManager::TYPE_CUSTOM') %}selected="selected"{% endif %}>Personnalisé</option>
+	                        </select>
+	                        <i></i>
+	                    </label>
+	                </section>
+	            </fieldset>
+	            <fieldset id="intervalPicker" class="hidden">
+					<div class="row">
+						<section class="col col-6">
+							<label class="input">
+								<input class="datetimepicker" placeholder="Début" type="text" name="begin[]" {% if dates[0].begin is defined and dates[0].begin %} value="{{dates[0].begin|date('Y-m-d H:i')}}" {% endif %}/>
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="input">
+								<input class="datetimepicker" placeholder="Fin" type="text" name="end[]" {% if dates[0].end is defined and dates[0].end %} value="{{dates[0].end|date('Y-m-d H:i')}}" {% endif %}/>
+							</label>
+						</section>
+					</div>
+				</fieldset>
+				<footer>
+					<input type="submit" class="btn btn-primary pull-left" value="Valider" />
+				</footer>
+	        </form>
+        </div>
+    </div>
+</div>

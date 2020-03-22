@@ -1,0 +1,9 @@
+tracker_admin_ticket_index:
+    pattern:  /
+    defaults: { _controller: TrackerAdminBundle:Ticket:index }
+
+tracker_admin_ticket_view:
+    pattern:  /view/{id}
+    defaults: { _controller: TrackerAdminBundle:Ticket:view }
+    requirements:
+        id: \d+

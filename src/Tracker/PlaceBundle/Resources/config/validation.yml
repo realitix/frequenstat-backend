@@ -1,0 +1,23 @@
+Tracker\PlaceBundle\Entity\Place:
+    properties:
+        name:
+            - NotBlank:
+                message: Le nom ne peut pas être vide
+        address:
+            - NotBlank:
+                message: "L'adresse ne peut pas être vide"
+        placeType:
+            - NotBlank:
+                message: Le type de point de vente ne peut pas être nul
+
+Tracker\PlaceBundle\Entity\Box:
+    properties:
+        name:
+            - NotBlank:
+                message: Le nom ne peut pas être vide
+        serialNumber:
+            - NotBlank:
+                message: "Le numéro de série ne peut pas être vide"
+        version:
+            - NotBlank:
+                message: La version ne peut pas être vide

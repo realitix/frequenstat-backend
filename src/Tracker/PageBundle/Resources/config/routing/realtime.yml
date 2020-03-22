@@ -1,0 +1,3 @@
+tracker_page_realtime_index:
+    pattern:  /
+    defaults: { _controller: TrackerPageBundle:Realtime:index }

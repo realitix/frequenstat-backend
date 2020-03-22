@@ -1,0 +1,39 @@
+Tracker\CaptureBundle\Entity\CaptureCache:
+    type: entity
+    table: capture_cache
+    repositoryClass: Tracker\CaptureBundle\Entity\CaptureCacheRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: smallint
+        chart:
+            type: array
+            nullable: true
+        redemptionRate:
+            type: smallint
+            nullable: true
+        osRate:
+            type: array
+            nullable: true
+        averageTime:
+            type: string
+            length: 255
+            nullable: true
+        modified:
+            type: datetime
+
+    manyToOne:
+        user:
+            targetEntity: \Tracker\UserBundle\Entity\User
+        place:
+            targetEntity: \Tracker\PlaceBundle\Entity\Place
+    
+    lifecycleCallbacks:
+        prePersist: [prePersist]
+        preUpdate: [preUpdate]
+

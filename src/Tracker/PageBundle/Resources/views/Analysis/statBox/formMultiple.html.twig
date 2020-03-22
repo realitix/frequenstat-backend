@@ -1,0 +1,39 @@
+<div class="row {% if validDates %}hidden{% endif %}" id="formInterval">
+    <div class="col-sm-12">
+        <div class="well">
+            <h1>Sélectionner les périodes à comparer</h1>
+	        <form class="smart-form" method="GET">
+	            {% for i in 0..(nbDates-1) %}
+	                {% set valueBegin = '' %}
+	                {% set valueEnd = '' %}
+	                {% if dates[i] is defined and dates[i] %}
+                        {% if dates[i].begin is defined and dates[i].begin  %}
+	                        {% set valueBegin = dates[i].begin %}
+                        {% endif  %}
+                        {% if dates[i].end is defined and dates[i].end  %}
+	                        {% set valueEnd = dates[i].end %}
+                        {% endif  %}
+	                {% endif %}
+    	        	<header>Période {{loop.index}}</header>
+    	            <fieldset>
+						<div class="row">
+							<section class="col col-6">
+								<label class="input">
+									<input class="datetimepicker" placeholder="Début" type="text" name="begin[]" {% if valueBegin %} value="{{valueBegin|date('Y-m-d H:i')}}" {% endif %}/>
+								</label>
+							</section>
+							<section class="col col-6">
+								<label class="input">
+									<input class="datetimepicker" placeholder="Fin" type="text" name="end[]" {% if valueEnd %} value="{{valueEnd|date('Y-m-d H:i')}}" {% endif %}/>
+								</label>
+							</section>
+						</div>
+					</fieldset>
+				{% endfor %}
+				<footer>
+					<input type="submit" class="btn btn-primary pull-left" value="Valider" />
+				</footer>
+	        </form>
+        </div>
+    </div>
+</div>

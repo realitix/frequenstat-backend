@@ -1,0 +1,38 @@
+Tracker\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        firstName:
+            - NotBlank:
+                message: Votre prénom ne peut pas être vide
+        lastName:
+            - NotBlank:
+                message: Votre nom ne peut pas être vide
+        email:
+            - NotBlank:
+                message: Votre email ne peut pas être vide
+            - Email:
+                message: "'{{ value }}' n'est pas un email valide"
+        password:
+            - NotBlank:
+                message: Votre mot de passe ne peut pas être vide
+            - Length:
+                min: 6
+                minMessage: "Votre mot de passe doit être d'au moins de 6 caractères"
+        company:
+            - NotBlank:
+                message: Le nom de votre société ne peut pas être vide
+        phoneNumber1:
+            - NotBlank:
+                message: Votre numéro de téléphone fixe ne peut pas être nul
+            - Length:
+                min: 10
+                minMessage: "Votre numéro de téléphone doit être d'au moins 10 caractères"
+                max: 20
+                maxMessage: "Le numéro de téléphone 1 ne doit pas excéder 20 caractères"
+        phoneNumber2:
+            - Length:
+                min: 10
+                minMessage: "Le numéro de téléphone 2 doit être d'au moins 10 caractères"
+                max: 20
+                maxMessage: "Le numéro de téléphone 2 ne doit pas excéder 20 caractères"

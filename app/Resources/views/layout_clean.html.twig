@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		{% include 'head.html.twig' %}
+	</head>
+	<body id="login" class="animated fadeInDown">
+	
+		<header id="header">
+			<div id="logo-group" style="width: auto; height: auto;">
+				<span id="logo" style="width: auto; height: auto; margin-top:18px;"> <a href="http://frequenstat.com"><img style="width: auto;" src="{{asset('img/logo.png')}}" alt="FrequenStat"></a></span>
+			</div>
+		</header>
+
+		<!-- MAIN PANEL -->
+		<div id="main" role="main">
+		
+			<!-- MAIN CONTENT -->
+			<div id="content" class="container">
+			
+			    {% include 'session.html.twig' %}
+			
+    			{% block body %}
+                {% endblock %}
+            
+			</div>
+		</div>
+		
+		{% include 'foot.html.twig' %}
+		{% block javascript %}
+        {% endblock %}
+		
+	</body>
+</html>

@@ -1,0 +1,3 @@
+tracker_api_v1:
+    resource: "@TrackerApiBundle/Resources/config/routing/v1/api.yml"
+    prefix:   /v1/

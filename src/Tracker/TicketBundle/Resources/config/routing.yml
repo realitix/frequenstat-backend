@@ -1,0 +1,19 @@
+tracker_ticket_ticket_add:
+    pattern:  /add
+    defaults: { _controller: TrackerTicketBundle:Ticket:add }
+    
+tracker_ticket_ticket_index:
+    pattern:  /
+    defaults: { _controller: TrackerTicketBundle:Ticket:index }
+    
+tracker_ticket_ticket_view:
+    pattern:  /view/{id}
+    defaults: { _controller: TrackerTicketBundle:Ticket:view }
+    requirements:
+        id: \d+
+
+tracker_ticket_message_add:
+    pattern:  /message/add/{id}
+    defaults: { _controller: TrackerTicketBundle:Message:add }
+    requirements:
+        id: \d+

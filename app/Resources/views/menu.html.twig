@@ -1,0 +1,125 @@
+{% set r = app.request.attributes.get('_route') %}
+
+{% set classDashboard = '' %}
+{% if r == 'tracker_page_dashboard' %} 
+    {% set classDashboard = "active" %} 
+{% endif %}
+
+{% set classAnalysisAnalyze = '' %}
+{% if r == 'tracker_page_analysis_analyze' %} 
+    {% set classAnalysisAnalyze = "active" %} 
+{% endif %}
+
+{% set classAnalysisCompare2 = '' %}
+{% if r == 'tracker_page_analysis_compare2' %} 
+    {% set classAnalysisCompare2 = "active" %} 
+{% endif %}
+
+{% set classAnalysisCompare3 = '' %}
+{% if r == 'tracker_page_analysis_compare3' %} 
+    {% set classAnalysisCompare3 = "active" %} 
+{% endif %}
+
+{% set classAnalysisCompare4 = '' %}
+{% if r == 'tracker_page_analysis_compare4' %} 
+    {% set classAnalysisCompare4 = "active" %} 
+{% endif %}
+
+{% set classExportation = '' %}
+{% if r == 'tracker_page_exportation_export' %} 
+    {% set classExportation = "active" %} 
+{% endif %}
+
+{% set classRealtime = '' %}
+{% if r == 'tracker_page_realtime_index' %} 
+    {% set classRealtime = "active" %} 
+{% endif %}
+
+{% set classTicket = '' %}
+{% if r == 'tracker_ticket_ticket_index' or r == 'tracker_ticket_ticket_add' or r == 'tracker_ticket_ticket_view' %} 
+    {% set classTicket = "active" %} 
+{% endif %}
+
+{% set classAdminUser = '' %}
+{% if r == 'tracker_admin_user_index' or r == 'tracker_admin_user_add' or r == 'tracker_admin_user_view' or r == 'tracker_admin_user_edit' %} 
+    {% set classAdminUser = "active" %} 
+{% endif %}
+
+{% set classAdminTicket = '' %}
+{% if r == 'tracker_admin_ticket_index' or r == 'tracker_admin_ticket_view' %} 
+    {% set classAdminTicket = "active" %} 
+{% endif %}
+
+<aside id="left-panel">
+	<div class="login-info">
+		<span> 
+			<a href="#" onclick="return false" style="text-transform:none">
+				<i class="fa fa-lg fa-fw fa-user" ></i>
+				{{ app.user.email | truncate(24) }} 
+			</a>
+		</span>
+	</div>
+	<nav>
+		<ul>
+			{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+				<li>
+					<a class="alert-danger" href="{{ path('tracker_page_dashboard', {'_become_user': '_exit'}) }}" title="Redevenir admin"><i class="fa fa-lg fa-fw fa-repeat"></i> <span class="menu-item-parent">Redevenir admin</span></a>
+				</li>
+			{% endif %}
+			
+			<li class="{{classDashboard}}">
+				<a href="{{ path('tracker_page_dashboard') }}" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+			</li>
+			
+			<li>
+				<a href="#">
+    				<i class="fa fa-lg fa-fw fa-bar-chart-o"></i> 
+    				<span class="menu-item-parent">Analyses</span>
+				</a>
+				<ul>
+				    <li class="{{classAnalysisAnalyze}}">
+        				<a href="{{ path('tracker_page_analysis_analyze') }}" title="Analyser une période"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Analyser</span></a>
+        			</li>
+    				<li class="{{classAnalysisCompare2}}">
+        				<a href="{{ path('tracker_page_analysis_compare2') }}" title="Comparer deux périodes"><i class="fa fa-lg fa-fw fa-code-fork"></i> <span class="menu-item-parent">Comparer deux</span></a>
+        			</li>
+        			<li class="{{classAnalysisCompare3}}">
+        				<a href="{{ path('tracker_page_analysis_compare3') }}" title="Comparer trois périodes"><i class="fa fa-lg fa-fw fa-code-fork"></i> <span class="menu-item-parent">Comparer trois</span></a>
+        			</li>
+        			<li class="{{classAnalysisCompare4}}">
+        				<a href="{{ path('tracker_page_analysis_compare4') }}" title="Comparer quatre périodes"><i class="fa fa-lg fa-fw fa-code-fork"></i> <span class="menu-item-parent">Comparer quatre</span></a>
+        			</li>
+				</ul>
+    		</li>
+    		
+    		<li class="{{classExportation}}">
+				<a href="{{ path('tracker_page_exportation_export') }}" title="Exportation"><i class="fa fa-lg fa-fw fa-download"></i> <span class="menu-item-parent">Exportation</span></a>
+			</li>
+			
+			<li class="{{classRealtime}}">
+				<a href="{{ path('tracker_page_realtime_index') }}" title="Temps réel"><i class="fa fa-lg fa-fw fa-bolt"></i> <span class="menu-item-parent">Temps réel</span></a>
+			</li>
+			
+			<li class="{{ classTicket }}">
+				<a href="{{ path('tracker_ticket_ticket_index') }}" title="Tickets"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">Tickets</span></a>
+			</li>
+			
+			{# Zone admin #}
+			{% if is_granted('ROLE_ADMIN') %}
+			    <li>
+    				<a href="#">
+        				<i class="fa fa-lg fa-fw fa-user"></i> 
+        				<span class="menu-item-parent">Administration</span>
+    				</a>
+    				<ul>
+    				    <li class="{{classAdminUser}}"><a href="{{ path('tracker_admin_user_index') }}">Utilisateurs</a></li>
+    				    <li class="{{classAdminTicket}}"><a href="{{ path('tracker_admin_ticket_index') }}">Tickets</a></li>
+    				</ul>
+    			</li>
+			{% endif %}
+		</ul>
+	</nav>
+	<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+
+</aside>
+<!-- END NAVIGATION -->

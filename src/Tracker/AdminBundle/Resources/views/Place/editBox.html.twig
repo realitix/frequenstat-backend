@@ -1,0 +1,68 @@
+{% extends "TrackerAdminBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li><a href="{{ path('tracker_admin_user_index') }}">{{ 'Utilisateurs'|trans }}</a></li>
+	<li><a href="{{ path('tracker_admin_user_view', {id: place.user.id}) }}">{{ place.user.firstName }} {{place.user.lastName}}</a></li>
+	<li>Modification d'une box</li>
+{% endblock %}
+
+{% block admin_body %}
+<div id="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-table"></i> Modification d'une box </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget">
+					<header>
+						<span class="widget-icon"><i class="fa fa-edit"></i></span>
+						<h2>Modification d'une box</h2>
+					</header>
+					<div>
+    					<div class="widget-body no-padding">
+                            {% if not form.vars.valid %}
+                                <div class="alert alert-danger">
+                                    <button class="close"> x </button>
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>Une erreur est survenue!</strong>
+                                    {{ form_errors(form) }}
+                                </div>
+                            {% endif %}
+                            <form class="smart-form" method="post">
+                                <fieldset>
+                                    <section>
+                                        <label class="input">
+                                            {{ form_widget(form.name) }}
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input">
+                                            {{ form_widget(form.serialNumber) }}
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input">
+                                            {{ form_widget(form.version) }}
+                                        </label>
+                                    </section>
+                                </fieldset>
+                                
+                                {{ form_rest(form) }}
+                                
+                                <footer>
+                                    <button class="btn btn-primary" type="submit">Valider</button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+{% endblock %}

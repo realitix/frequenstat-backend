@@ -1,0 +1,5 @@
+doctrine_cache:
+    providers:
+        statBox:
+            type: apc
+            namespace: statbox_cache

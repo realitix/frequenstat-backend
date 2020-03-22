@@ -1,0 +1,3 @@
+tracker_page_dashboard:
+    pattern:  /
+    defaults: { _controller: TrackerPageBundle:Dashboard:index }

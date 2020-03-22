@@ -1,0 +1,48 @@
+security:
+    encoders:
+        Tracker\UserBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        # L'api est en accès libre
+        api:
+            pattern:  ^/api/
+            security: false
+            
+        main_login:
+            pattern: ^/login$
+            anonymous: true
+        
+        main_reset_password:
+            pattern: ^/resetting
+            anonymous: true
+        
+        anonymous_payment:
+            pattern: ^/payment(/process)?$
+            anonymous: true
+        
+        main:
+            pattern:        ^/
+            anonymous:      false
+            provider:       main
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path:       fos_user_security_logout
+                target:     /
+            remember_me:
+                key:        %secret% # %secret% est un paramètre de parameters.yml
+            switch_user: { role: ROLE_ALLOWED_TO_SWITCH, parameter: _become_user }
+
+    access_control:
+        - { path: ^/admin/, roles: ROLE_ADMIN }

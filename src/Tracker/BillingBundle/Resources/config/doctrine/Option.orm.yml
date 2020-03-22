@@ -1,0 +1,26 @@
+Tracker\BillingBundle\Entity\Option:
+    type: entity
+    table: billing_option
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 255
+        price:
+            type: decimal
+            precision: 8
+            scale: 2
+        description:
+            type: text
+    
+    manyToOne:
+        offer:
+            targetEntity: \Tracker\BillingBundle\Entity\Offer
+            inversedBy: options
+            
+    lifecycleCallbacks: {  }

@@ -1,0 +1,79 @@
+{% extends "TrackerTicketBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li>{{ 'Tickets'|trans }}</li>
+{% endblock %}
+
+{% block ticket_body %}
+<div id="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-table"></i> {{ 'Tickets'|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget jarviswidget-color-blueDark">
+					<header>
+						<span class="widget-icon"><i class="fa fa-table"></i></span>
+						<h2>Liste des tickets</h2>
+					</header>
+					<div>
+						<div class="widget-body">
+							<a href="{{ path('tracker_ticket_ticket_add') }}" class="btn btn-labeled btn-primary">
+								<span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>
+								Ouvrir un nouveau ticket
+							</a>
+							<hr />
+							
+							{% if tickets %}
+							<p>Retrouver ci dessous tous vos tickets.</p>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Titre</th>
+										<th>Réponses</th>
+										<th>Type</th>
+										<th>Date de création</th>
+										<th>Date de fermeture</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for t in tickets %}
+									    {% set class = '' %}
+									    {% if not t.closed %} {% set class = 'warning' %} {% endif %}
+									    {% if not t.messages.isEmpty %}
+									        {% if t.messages.last.user.id != app.user.id %}
+									            {% set class = 'success' %}
+									        {% endif %}
+									    {% endif %}
+									    
+										<tr class="{{ class }}">
+											<td>{{ t.name }}</td>
+											<td>{{ t.messages.count }}</td>
+											<td>{{ t.typeDescription }}</td>
+											<td>{{ t.created | date("d/m/Y H:i") }}</td>
+											<td>{% if t.closed %}{{ t.closed | date("d/m/Y H:i") }}{% else %}Ouvert{% endif %}</td>
+										    <td><a href="{{ path('tracker_ticket_ticket_view', {id: t.id}) }}" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-pencil"></i></a></td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							{% else %}
+								<div class="alert alert-info alert-block">
+									<i class="fa-fw fa fa-info"></i>
+									Vous n'avez aucun ticket.
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+{% endblock %}

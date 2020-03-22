@@ -1,0 +1,5 @@
+tracker_ajax_capture_getLastMinute:
+    path: /capture/getLastSeconds/{id}
+    defaults: { _controller: TrackerAjaxBundle:Capture:getLastSeconds }
+    requirements:
+        id: \d+

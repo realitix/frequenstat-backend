@@ -1,0 +1,81 @@
+{% extends "TrackerPageBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li>{{ 'Accueil'|trans }}</li><li>{{ "Vue d'ensemble"|trans }}</li>
+{% endblock %}
+
+{% block page_body %}
+<div id="content">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> {{ "Vue d'ensemble"|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid">
+
+		<div class="row">
+			<article class="col-sm-12">
+				<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+					<header>
+						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+						<h2>Statistiques temporelles</h2>
+					</header>
+
+					<!-- widget div-->
+					<div>
+						<div class="widget-body">
+							<form class="smart-form" method="GET">
+								<header>Sélectionner l'intervalle de comptage</header>
+								<fieldset>
+									<div class="row">
+										<section class="col col-6">
+											<label class="input">
+												<input class="datetimepicker" placeholder="Début" type="text" name="begin" {% if begin %} value="{{begin|date('Y-m-d H:i')}}" {% endif %}/>
+											</label>
+										</section>
+										<section class="col col-6">
+											<label class="input">
+												<input class="datetimepicker" placeholder="Fin" type="text" name="end" {% if end %} value="{{end|date('Y-m-d H:i')}}" {% endif %}/>
+											</label>
+										</section>
+									</div>
+								</fieldset>
+								<footer>
+									<input type="submit" class="btn btn-primary pull-left" value="Valider" />
+								</footer>
+							</form>
+							
+							{% if results %}
+    							<hr class="simple" />
+    							<h3>Résultats</h3>
+    							
+    							{% if not results.sum %}
+    							    <p class="alert alert-info fade in">
+    							        <i class="fa-fw fa fa-warning"></i>
+    							        Aucun résultat pour la période demandée.
+    							    </p>
+    							{% else %}
+    							    <div class="jumbotron text-center">
+    							        <h1 class="text-primary">{{results.people}} personnes détectées</h1>
+    							        <hr />
+    							        <h2>{{results.unique}} Smartphones détectés</h2>
+    						    	    <h2>{{results.sum}} signaux détectés</h2>
+    						    	</div>
+    						    {% endif %}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+		
+		
+	</section>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

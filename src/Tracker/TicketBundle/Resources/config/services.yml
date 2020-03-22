@@ -1,0 +1,7 @@
+parameters:
+#    tracker_ticket.example.class: Tracker\TicketBundle\Example
+
+services:
+#    tracker_ticket.example:
+#        class: %tracker_ticket.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

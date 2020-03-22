@@ -1,0 +1,24 @@
+Tracker\OuiBundle\Entity\Organization:
+    type: entity
+    table: organization
+    repositoryClass: Tracker\OuiBundle\Entity\OrganizationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: '255'
+        mac:
+            type: string
+            length: '8'
+            unique: true
+            
+    manyToOne:
+        os:
+            targetEntity: Tracker\OuiBundle\Entity\Os
+            
+    lifecycleCallbacks: {  }

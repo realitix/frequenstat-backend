@@ -1,0 +1,27 @@
+Tracker\PlaceBundle\Entity\Room:
+    type: entity
+    table: place_room
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        area:
+            type: polygon
+            nullable: true
+        scene:
+            type: json_array
+            nullable: true
+    manyToOne:
+        place:
+            targetEntity: Place
+        
+    lifecycleCallbacks: {  }

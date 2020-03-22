@@ -1,0 +1,11 @@
+tracker_admin_user:
+    resource: "@TrackerAdminBundle/Resources/config/routing/User/routing.yml"
+    prefix:   /user
+    
+tracker_admin_ticket:
+    resource: "@TrackerAdminBundle/Resources/config/routing/Ticket/routing.yml"
+    prefix:   /ticket
+
+tracker_admin_place:
+    resource: "@TrackerAdminBundle/Resources/config/routing/Place/routing.yml"
+    prefix:   /place

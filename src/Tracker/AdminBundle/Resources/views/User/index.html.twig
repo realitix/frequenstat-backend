@@ -1,0 +1,73 @@
+{% extends "TrackerAdminBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li>{{ 'Utilisateurs'|trans }}</li>
+{% endblock %}
+
+{% block admin_body %}
+<div id="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-table"></i> {{ 'Utilisateurs'|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget jarviswidget-color-blueDark">
+					<header>
+						<span class="widget-icon"><i class="fa fa-table"></i></span>
+						<h2>Liste des utilisateurs</h2>
+					</header>
+					<div>
+						<div class="widget-body">
+							<a href="{{ path('tracker_admin_user_add') }}" class="btn btn-labeled btn-primary">
+								<span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>
+								Créer un nouvel utilisateur
+							</a>
+							<hr />
+							
+							{% if users %}
+							<p>Retrouver ci dessous tous les utilisateurs.</p>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Nom</th>
+										<th>Société</th>
+										<th>Tel1</th>
+										<th>Date de création</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for u in users %}
+										<tr>
+											<td>{{ u.lastName }} {{ u.firstName }}</td>
+											<td>{{ u.company }}</td>
+											<td>{{ u.phoneNumber1 }}</td>
+											<td>{{ u.created | date("d/m/Y H:i") }}</td>
+										    <td>
+										        <a title="Voir" href="{{ path('tracker_admin_user_view', {id: u.id}) }}" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-eye-open"></i></a>
+										        <a title="Modifier" href="{{ path('tracker_admin_user_edit', {id: u.id}) }}" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-pencil"></i></a>
+										        <a title="Voir à la place" href="{{ path('tracker_page_dashboard', {_become_user: u.username}) }}" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-refresh"></i></a>
+										    </td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							{% else %}
+								<div class="alert alert-info alert-block">
+									<i class="fa-fw fa fa-info"></i>
+									Il n'y a aucun utilisateur.
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+{% endblock %}

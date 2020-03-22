@@ -1,0 +1,336 @@
+{% extends "TrackerPageBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li>{{ 'Accueil'|trans }}</li><li>{{ "Vue d'ensemble"|trans }}</li>
+{% endblock %}
+
+{% block page_body %}
+<div id="content">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> {{ "Vue d'ensemble"|trans }} </span></h1>
+		</div>
+	</div>
+	
+	{% if nbDates > 1 %}
+	    {% include "TrackerPageBundle:Analysis:statBox/formMultiple.html.twig" %}
+	{% else %}
+	    {% include "TrackerPageBundle:Analysis:statBox/formUnique.html.twig" %}
+	{% endif %}
+	
+    {% if validDates %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="well">
+                    <h1>
+                        <a href="#" class="btn btn-labeled btn-success" id="displayFormInterval">
+    	                    <span class="btn-label"><i class="glyphicon glyphicon-pencil"></i></span>
+    	                    Modifier
+    	                </a>
+    	                Intervalle sélectionné: <br /> 
+    	                {% for d in dates %}
+    	                    Période {{loop.index}} : Du {{dates[loop.index0].begin|date('Y-m-d H:i')}} au {{dates[loop.index0].end|date('Y-m-d H:i')}} <br />
+    	                {% endfor %}
+    	           </h1>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+	<hr />
+	
+	{% if not validDates %}
+	    <section>
+	        <div class="row">
+	            <article class="col-sm-12">
+	                <div class="alert alert-info fade in">
+	                    <i class="fa fa-fw fa-info"></i>
+	                    <strong>Information </strong>
+	                    Sélectionnez un intervalle.
+	                </div>
+	            </article>
+	        </div>
+	    </section>
+	{% else %}
+	    {% set ok = true %}
+	    {% for d in dates %}
+	        {% if not dates[loop.index0].hasCapture %}
+	            {% set ok = false %}
+    	        <section>
+        	        <div class="row">
+        	            <article class="col-sm-12">
+        	                <div class="alert alert-info fade in">
+        	                    <i class="fa fa-fw fa-info"></i>
+        	                    <strong>Information </strong>
+        	                    Aucune information pour la première période sélectionnée.
+        	                </div>
+        	            </article>
+        	        </div>
+        	    </section>
+	        {% endif %}
+        {% else %}
+            {% set ok = false %}
+	    {% endfor %}
+	    
+	    {% if ok %}
+	    
+    	    <section>
+        	
+        		<div class="row">
+        			<article class="col-sm-12">
+        				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        					<header>
+        						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+        						<h2>Passage horaire</h2>
+        					</header>
+        
+    						<div class="widget-body">
+    							<div class="tab-content">
+    								<div class="no-padding-bottom">
+    									<div class="row no-space">
+    										<div class="col-xs-12">
+    											<div id="flot-placeholder-count" class="chart-large txt-color-blue"></div>
+    											{% for d in dates %}
+    												{% set style = 'margin-bottom: 5px; margin-top: 5px;' %}
+    												{% if loop.index == 1 %}{% set style = style~' margin-top: 20px' %}{% endif %}
+    												<h2 style="{{style}}">Nombre total de passages{% if nbDates > 1 %} dans la période {{loop.index}}{% endif %} : {{ d.stats.countChart.captures.sum }}</h2>
+    											{% endfor %}
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+        				</div>
+        			</article>
+        		</div>
+        		
+        		<div class="row">
+        			<article class="col-sm-12">
+        				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        					<header>
+        						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+        						<h2>Taux d'entrée horaire</h2>
+        					</header>
+        
+    						<div class="widget-body">
+    							<div class="tab-content">
+    								<div class="no-padding-bottom">
+    									<div class="row no-space">
+    										<div class="col-xs-12">
+    											<div id="flot-placeholder-ratio" class="chart-large txt-color-blue"></div>
+    											{% for d in dates %}
+    												{% set style = 'margin-bottom: 5px; margin-top: 5px;' %}
+    												{% if loop.index == 1 %}{% set style = style~' margin-top: 20px' %}{% endif %}
+    												<h2 style="{{style}}">Nombre total d'entrées{% if nbDates > 1 %}  dans la période {{loop.index}}{% endif %} : {{ d.stats.ratioChart.sumEntry }}</h2>
+    											{% endfor %}
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+        				</div>
+        			</article>
+        		</div>
+        		
+        		<div class="row">
+        		    {% set class = "col-sm-"~ dates|length * 3 %}
+        		    {% if dates|length == 3 %}
+        		        {% set class = class ~ ' col-sm-offset-1' %}
+        		    {% endif %}
+        		    {% if dates|length == 1 %}
+        		        {% set class = "col-sm-4" %}
+        		    {% endif %}
+        			<article class="{{class}}">
+        				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        					<header>
+        						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+        						<h2>Taux d'entrées</h2>
+        					</header>
+        
+    						<div class="widget-body">
+    							<div class="tab-content">
+    								<div class="no-padding-bottom">
+    								    {% for d in dates %}
+    										<div class="col-xs-{{12/dates|length}}">
+    											<div id="flot-placeholder-ratio-pie-{{loop.index}}" class="chart-large txt-color-blue"></div>
+    										</div>
+    									{% endfor %}
+    								</div>
+    							</div>
+    						</div>
+        				</div>
+        			</article>
+        			
+        			<article class="{{class}}">
+        				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        					<header>
+        						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+        						<h2>Taux de retour</h2>
+        					</header>
+        
+    						<div class="widget-body">
+    							<div class="tab-content">
+    								<div class="no-padding-bottom">
+    								    {% for d in dates %}
+    										<div class="col-xs-{{12/dates|length}}">
+    											<div id="flot-placeholder-redemption-pie-{{loop.index}}" class="chart-large txt-color-blue"></div>
+    										</div>
+    									{% endfor %}
+    								</div>
+    							</div>
+    						</div>
+        				</div>
+        			</article>
+        		</div>
+        		
+        		<div class="row">
+        			<article class="col-sm-12">
+        				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        					<header>
+        						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+        						<h2>Temps de présence moyen horaire</h2>
+        					</header>
+        
+    						<div class="widget-body">
+    							<div class="tab-content">
+    								<div class="no-padding-bottom">
+    									<div class="row no-space">
+    										<div class="col-xs-12">
+    											<div id="flot-placeholder-average-time" class="chart-large txt-color-blue"></div>
+    											    {% for d in dates %}
+        											    {% set sumTime = d.stats.averageTimeChart.sumTime %}
+        												{% set s = sumTime + 60*60 %}
+        												{% set hours = s / 3600 %}
+        												{% set remainder = s % 3600 %}
+        												{% set minutes = remainder / 60 %}
+        												{% set seconds = remainder % 60 %}
+        												
+        												{% set style = 'margin-bottom: 5px; margin-top: 5px;' %}
+    												    {% if loop.index == 1 %}{% set style = style~' margin-top: 20px' %}{% endif %}
+        												
+        												<h2 style="{{style}}">
+        													Moyenne globale{% if nbDates > 1 %}  pour la période {{loop.index}}{% endif %} : 
+        													{% if sumTime == 0 %}
+        													    Aucune entrée
+        													{% elseif s >= 60*60 %}
+        														{{ sumTime|date('G') }} heure{%if hours >= 2%}s{%endif%} et
+        														{{ sumTime|date('i') }} minute{%if minutes >= 2 %}s{%endif%}
+        													{% else %}
+        														{{ sumTime|date('i') }} minute{%if minutes >= 2 %}s{%endif%} et 
+        														{{ sumTime|date('s') }} seconde{%if seconds >= 2 %}s{%endif%}
+        													{% endif %}
+        												</h2>
+    												{% endfor %}
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+        				</div>
+        			</article>
+        		</div>
+        		
+        	</section>
+	    
+	    
+	    {% endif %}
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        // transforme le hidden en hide jquery
+        $('.hidden').hide().removeClass('hidden');
+        
+        {# Selection intervalle personnalisé #}
+        var sInterval  = $("#selectInterval");
+        var intervalPicker = $("#intervalPicker");
+        
+        // Init the options
+        var idInterval = parseInt(sInterval.find(":selected").val());
+        
+        if( idInterval == 4 ) {
+            intervalPicker.show();
+        }
+        
+        sInterval.on('change', function() {
+        	var idInterval = parseInt($(this).val());
+        	if( idInterval == 4 ) {
+        	    intervalPicker.show();
+        	}
+        	else {
+        	    intervalPicker.hide();
+        	}
+        });
+        
+        {# Bouton affichage formulaire #}
+        $('#displayFormInterval').on('click', function(event) {
+            event.preventDefault();
+            $('#formInterval').show(500);
+        });
+    });
+</script>
+
+
+{% set ok = true %}
+{% for d in dates %}
+    {% if d.hasCapture is not defined or not d.hasCapture %}
+        {% set ok = false %}
+    {% endif %}
+{% else %}
+    {% set ok = false %}
+{% endfor %}
+
+{% if ok %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        var dataTransit = [];
+        var dataEntry = [];
+        var dataRatio = [];
+        var dataAverage = [];
+        {% for d in dates %}
+            dataTransit.push({{ d.stats.countChart.captures.real | raw }});
+            dataEntry.push({{ d.stats.ratioChart.entry | raw }});
+            dataRatio.push({{ d.stats.ratioChart.ratio | raw }});
+            dataAverage.push({{ d.stats.averageTimeChart.times | raw }});
+        {% endfor %}
+        
+        var options = {
+		    displayType: '{{ dates[0].stats.countChart.captures.displayType }}',
+		    dataTransit: dataTransit,
+		    dataEntry: dataEntry,
+		    dataRatio: dataRatio,
+		    dataAverage: dataAverage
+		};
+		
+		{% if nbDates == 1 %}
+			options['unique'] = true;
+		{% endif %}
+        
+		$("#flot-placeholder-count").frequenStatChartCount(options);
+		$("#flot-placeholder-ratio").frequenStatChartRatio(options);
+		$("#flot-placeholder-average-time").frequenStatChartAverage(options);
+        
+        {% for d in dates %}
+        	{# Ratio Pie #}
+            options['dataSumEntry'] = {{ d.stats.ratioChart.sumEntry}};
+		    options['dataSumTransit'] = {{ d.stats.ratioChart.sumTransit}};
+		    options['dataSumRatio'] = {{ d.stats.ratioChart.sumRatio}};
+            $("#flot-placeholder-ratio-pie-{{loop.index}}").frequenStatChartRatioPie(options);
+        	
+        	{# Redemption Pie #}
+        	options['dataSumMulti'] = {{ d.stats.redemptionChart.nb_multi}};
+		    options['dataSumUnique'] = {{ d.stats.redemptionChart.nb_unique}};
+		    options['dataRedemptionRate'] = {{ d.stats.redemptionChart.redemption_rate}};
+        	$("#flot-placeholder-redemption-pie-{{loop.index}}").frequenStatChartRedemptionPie(options);
+        {% endfor %}
+    });
+</script>
+{% endif %}
+
+{% endblock %}

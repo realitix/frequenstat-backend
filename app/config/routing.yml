@@ -1,0 +1,62 @@
+tracker_ajax:
+    resource: "@TrackerAjaxBundle/Resources/config/routing.yml"
+    prefix:   /ajax/
+
+tracker_box:
+    resource: "@TrackerBoxBundle/Resources/config/routing.yml"
+    prefix:   /box/
+
+tracker_billing:
+    resource: "@TrackerBillingBundle/Resources/config/routing.yml"
+    prefix:   /billing/
+
+tracker_admin:
+    resource: "@TrackerAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+
+tracker_ticket:
+    resource: "@TrackerTicketBundle/Resources/config/routing.yml"
+    prefix:   /ticket/
+
+tracker_oui:
+    resource: "@TrackerOuiBundle/Resources/config/routing.yml"
+    prefix:   /oui/
+
+tracker_capture:
+    resource: "@TrackerCaptureBundle/Resources/config/routing.yml"
+    prefix:   /capture/
+
+tracker_page:
+    resource: "@TrackerPageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+tracker_place:
+    resource: "@TrackerPlaceBundle/Resources/config/routing.yml"
+    prefix:   /place/
+
+tracker_station:
+    resource: "@TrackerStationBundle/Resources/config/routing.yml"
+    prefix:   /station/
+
+tracker_api:
+    resource: "@TrackerApiBundle/Resources/config/routing.yml"
+    prefix:   /api/
+
+tracker_user:
+    resource: "@TrackerUserBundle/Resources/config/routing.yml"
+    prefix:   /user/
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

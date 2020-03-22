@@ -1,0 +1,32 @@
+{% extends "TrackerAdminBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li><a href="{{ path('tracker_admin_user_index') }}">{{ 'Utilisateurs'|trans }}</a></li>
+	{#<li><a href="{{ path('tracker_admin_user_view', {id: user.id}) }}">{{ user.firstName }} {{user.lastName}}</a></li>{#}
+	<li>Modélisation de la salle</li>
+{% endblock %}
+
+{% block admin_body %}
+<style media="screen" type="text/css">
+iframe {
+   display:block;
+   width: 100%;
+   border:none;
+}
+</style>
+
+
+	    <iframe src="{{ path('tracker_admin_place_testEditorIFrame') }}"></iframe> 
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function(){
+    	var hTop = $("#header").height();
+    	hTop = hTop + $("#ribbon").height();
+        $("iframe").height( $(document).height() - hTop );
+    });
+</script>
+{% endblock %}

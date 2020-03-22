@@ -1,0 +1,13 @@
+parameters:
+#    tracker_capture.example.class: Tracker\CaptureBundle\Example
+
+services:
+    capture.finder:
+        class: Tracker\CaptureBundle\Service\CaptureFinder
+        arguments: [ @doctrine.orm.entity_manager, %wifi_multiplier% ]
+    capture.manager:
+        class: Tracker\CaptureBundle\Service\CaptureManager
+        arguments: [ @capture.finder ]
+    capture.exporter:
+        class: Tracker\CaptureBundle\Service\CaptureExporter
+        arguments: [ @capture.manager, @phpexcel ]

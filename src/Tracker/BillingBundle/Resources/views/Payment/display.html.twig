@@ -1,0 +1,220 @@
+<div class="row">
+	<article class="col-sm-12 col-md-12 col-lg-8 col-lg-offset-2">
+		<div class="jarviswidget" data-widget-editbutton="false" data-widget-deletebutton="false">
+			<header>
+				<span class="widget-icon"> <i class="fa fa-check"></i> </span>
+				<h2>Paiement</h2>
+			</header>
+			
+			<div>
+				<div class="widget-body">
+
+					<div class="row">
+						<form method="POST" novalidate="novalidate">
+							<div class="col-sm-12">
+								<div class="form-bootstrapWizard">
+									<ul class="bootstrapWizard form-wizard">
+										<li {% if step == 1 %}class="active"{% endif %}>
+											<a href="?step=1"> <span class="step">1</span> <span class="title">Offre</span> </a>
+										</li>
+										<li {% if step == 2 %}class="active"{% endif %}>
+											<a href="?step=2"> <span class="step">2</span> <span class="title">Inscription</span> </a>
+										</li>
+										<li {% if step == 3 %}class="active"{% endif %}>
+											<a href="?step=3"> <span class="step">3</span> <span class="title">Paiement</span> </a>
+										</li>
+										<li {% if step == 4 %}class="active"{% endif %}>
+											<a href="?step=4"> <span class="step">4</span> <span class="title">Finalisation</span> </a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="tab-content">
+								    {% if step == 1 %}
+    									<div class="tab-pane active">
+    										<br>
+    										<h3><strong>Etape 1 </strong> - Choisissez votre offre</h3>
+    
+    										<div class="row">
+    
+    											<div class="col-sm-12">
+    												<div class="form-group">
+    													<div class="input-group">
+    													    <span class="input-group-addon"><i class="fa fa-th-list fa-fg fa-fw"></i></span>
+														    <select class="form-control input-lg" id="selectOffer" name="offer">
+																<option value="0" disabled="disabled" {% if idOffer == 0 %}selected="selected"{% endif %}>Offre</option>
+																{% for o in offers %}
+																    <option value="{{o.id}}" {% if idOffer == o.id %}selected="selected"{% endif %}>{{o.name}}</option>
+																{% endfor %}
+															</select>
+    													</div>
+    												</div>
+    											</div>
+    											
+    											<div class="col-sm-12">
+    												<div class="form-group">
+    													<div class="input-group">
+    													    <span class="input-group-addon"><i class="fa fa-th-list fa-fg fa-fw"></i></span>
+														    <select class="form-control input-lg" id="selectOption" name="option">
+																<option value="0" selected="selected" disabled="disabled">Options</option>
+																{% for o in options %}
+																    <option value="{{o.id}}">{{ o.offer.name }} - &euro;{{o.price}} - {{o.name}}</option>
+																{% endfor %}
+															</select>
+    													</div>
+    												</div>
+    											</div>
+    											
+    										</div>
+    									</div>
+									{% endif %}
+									
+									{% if step == 2 %}
+    									<div class="tab-pane active">
+    										<br>
+    										<h3><strong>Etape 2</strong> - Inscrivez vous</h3>
+    
+    										<div class="row">
+    											<div class="col-sm-4">
+    												<div class="form-group">
+    													<div class="input-group">
+    														<span class="input-group-addon"><i class="fa fa-flag fa-lg fa-fw"></i></span>
+    														<select name="country" class="form-control input-lg">
+    															
+    														</select>
+    													</div>
+    												</div>
+    											</div>
+    											<div class="col-sm-4">
+    												<div class="form-group">
+    													<div class="input-group">
+    														<span class="input-group-addon"><i class="fa fa-map-marker fa-lg fa-fw"></i></span>
+    														<select class="form-control input-lg" name="city">
+    															<option value="" selected="selected">Select City</option>
+    															<option>Amsterdam</option>
+    															<option>Atlanta</option>
+    														</select>
+    													</div>
+    												</div>
+    											</div>
+    											<div class="col-sm-4">
+    												<div class="form-group">
+    													<div class="input-group">
+    														<span class="input-group-addon"><i class="fa fa-envelope-o fa-lg fa-fw"></i></span>
+    														<input class="form-control input-lg" placeholder="Postal Code" type="text" name="postal" id="postal">
+    													</div>
+    												</div>
+    											</div>
+    										</div>
+    										<div class="row">
+    											<div class="col-sm-6">
+    												<div class="form-group">
+    													<div class="input-group">
+    														<span class="input-group-addon"><i class="fa fa-phone fa-lg fa-fw"></i></span>
+    														<input class="form-control input-lg" data-mask="+99 (999) 999-9999" data-mask-placeholder= "X" placeholder="+1" type="text" name="wphone" id="wphone">
+    													</div>
+    												</div>
+    											</div>
+    											<div class="col-sm-6">
+    												<div class="form-group">
+    													<div class="input-group">
+    														<span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
+    														<input class="form-control input-lg" data-mask="+99 (999) 999-9999" data-mask-placeholder= "X" placeholder="+01" type="text" name="hphone" id="hphone">
+    													</div>
+    												</div>
+    											</div>
+    										</div>
+    									</div>
+									{% endif %}
+									
+									{% if step == 3 %}
+    									<div class="tab-pane active">
+    										<br>
+    										<h3><strong>Etape 3</strong> - Paiement</h3>
+    										<div class="alert alert-info fade in">
+    											<button class="close" data-dismiss="alert">
+    												×
+    											</button>
+    											<i class="fa-fw fa fa-info"></i>
+    											<strong>Info!</strong> Place an info message box if you wish.
+    										</div>
+    										<div class="form-group">
+    											<label>This is a label</label>
+    											<input class="form-control input-lg" placeholder="Another input box here..." type="text" name="etc" id="etc">
+    										</div>
+    									</div>
+									{% endif %}
+									
+									{% if step == 4 %}
+    									<div class="tab-pane active">
+    										<br>
+    										<h3><strong>Etape 4</strong> - Finalisation</h3>
+    										<br>
+    										<h1 class="text-center text-success"><strong><i class="fa fa-check fa-lg"></i> Complete</strong></h1>
+    										<h4 class="text-center">Click next to finish</h4>
+    										<br>
+    										<br>
+    									</div>
+									{% endif %}
+
+									<div class="form-actions">
+										<div class="row">
+											<div class="col-sm-12">
+												<ul class="pager wizard no-margin">
+													<li class="next">
+														<input type="submit" class="btn btn-lg txt-color-darken" value="Valider" />
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<!-- end widget content -->
+
+			</div>
+			<!-- end widget div -->
+
+		</div>
+		<!-- end widget -->
+
+	</article>
+	<!-- WIDGET END -->
+</div>
+
+
+{# Javascript utilisé pour les liste déroulate dynamique #}
+{% if step == 1 %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var tab = {};
+            tab['0'] = '<option value="0" selected="selected" disabled="disabled">Sélectionner une offre</option>';
+            {% for o in offers %}
+                {% set str = '<option value="" disabled="disabled" selected="selected">'~o.name~'</option>' %}
+                {% for op in o.options %}
+                    {% set str = str ~ '<option value="' ~ op.id ~'">&euro;'~ op.price ~ ' - ' ~ op.name ~'</option>' %}
+                {% endfor %}
+                
+                tab['{{o.id}}'] = '{{str | raw}}';
+            {% endfor %}
+            
+            var sOffer  = $("#selectOffer");
+            var sOption = $("#selectOption");
+            
+            // Init the options
+            var idOffer = sOffer.find(":selected").val();
+            sOption.html(tab[idOffer]);
+            
+            sOffer.on('change', function() {
+            	var idOffer = $(this).val();
+            	sOption.html(tab[idOffer]);
+            });
+        });
+        
+    </script>
+{% endif %}

@@ -1,0 +1,15 @@
+tracker_page_analysis_analyze:
+    pattern:  /analyze
+    defaults: { _controller: TrackerPageBundle:Analysis:analyze }
+
+tracker_page_analysis_compare2:
+    pattern:  /compare2
+    defaults: { _controller: TrackerPageBundle:Analysis:analyze }
+
+tracker_page_analysis_compare3:
+    pattern:  /compare3
+    defaults: { _controller: TrackerPageBundle:Analysis:analyze }
+    
+tracker_page_analysis_compare4:
+    pattern:  /compare4
+    defaults: { _controller: TrackerPageBundle:Analysis:analyze }

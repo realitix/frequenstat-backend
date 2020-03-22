@@ -1,0 +1,40 @@
+{% extends "::layout_clean.html.twig" %}
+
+{% block body %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if invalid_username is defined %}
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-md-offset-4 alert alert-danger fade in">
+			<i class="fa-fw fa fa-times"></i>
+			<strong>Erreur : </strong>
+			Adresse Email invalide.
+		</div>
+	</div>
+{% endif %}
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-md-offset-4">
+		<div class="well no-padding">
+			<form action="{{ path("fos_user_resetting_send_email") }}" method="POST" id="login-form" class="smart-form client-form">
+				<header>
+					Réinitialisation du mot de passe
+				</header>
+
+				<fieldset>
+					<section>
+						<label class="label">E-mail</label>
+						<label class="input"> <i class="icon-append fa fa-user"></i>
+							<input type="email" name="username" required="required">
+							<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Entrez votre adresse email</b></label>
+					</section>
+				</fieldset>
+				<footer>
+					<button type="submit" class="btn btn-primary">Valider</button>
+				</footer>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

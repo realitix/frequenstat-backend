@@ -1,0 +1,8 @@
+parameters:
+#    tracker_place.example.class: Tracker\PlaceBundle\Example
+
+services:
+    tracker_place.form.type.polygon:
+        class: Tracker\PlaceBundle\Form\Type\PolygonType
+        tags:
+            - { name: form.type, alias: polygon }

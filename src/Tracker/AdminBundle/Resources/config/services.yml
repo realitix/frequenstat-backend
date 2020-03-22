@@ -1,0 +1,7 @@
+parameters:
+#    tracker_admin.example.class: Tracker\AdminBundle\Example
+
+services:
+#    tracker_admin.example:
+#        class: %tracker_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

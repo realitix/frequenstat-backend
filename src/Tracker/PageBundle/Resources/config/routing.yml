@@ -1,0 +1,19 @@
+tracker_page_analysis:
+    resource: "@TrackerPageBundle/Resources/config/routing/analysis.yml"
+    prefix:   /analysis/
+
+tracker_page_payment:
+    resource: "@TrackerPageBundle/Resources/config/routing/payment.yml"
+    prefix:   /payment/
+
+tracker_page_exportation:
+    resource: "@TrackerPageBundle/Resources/config/routing/exportation.yml"
+    prefix:   /exportation/
+
+tracker_page_realtime:
+    resource: "@TrackerPageBundle/Resources/config/routing/realtime.yml"
+    prefix:   /realtime/
+
+tracker_page_dashboard:
+    resource: "@TrackerPageBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /

@@ -1,0 +1,19 @@
+tracker_admin_user_index:
+    pattern:  /
+    defaults: { _controller: TrackerAdminBundle:User:index }
+
+tracker_admin_user_add:
+    pattern:  /add
+    defaults: { _controller: TrackerAdminBundle:User:add }
+
+tracker_admin_user_view:
+    pattern:  /view/{id}
+    defaults: { _controller: TrackerAdminBundle:User:view }
+    requirements:
+        id: \d+
+
+tracker_admin_user_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: TrackerAdminBundle:User:edit }
+    requirements:
+        id: \d+

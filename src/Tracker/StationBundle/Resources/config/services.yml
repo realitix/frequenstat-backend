@@ -1,0 +1,7 @@
+parameters:
+#    tracker_station.example.class: Tracker\StationBundle\Example
+
+services:
+#    tracker_station.example:
+#        class: %tracker_station.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

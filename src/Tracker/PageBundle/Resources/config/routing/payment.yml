@@ -1,0 +1,11 @@
+tracker_page_payment_main:
+    pattern:  /
+    defaults: { _controller: TrackerPageBundle:Payment:main }
+    requirements:
+        _method:  GET
+    
+tracker_page_payment_mainProcess:
+    pattern:  /process
+    defaults: { _controller: TrackerPageBundle:Payment:mainProcess }
+    requirements:
+        _method:  POST

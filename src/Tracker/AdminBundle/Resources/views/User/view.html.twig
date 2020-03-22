@@ -1,0 +1,128 @@
+{% extends "TrackerAdminBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li><a href="{{ path('tracker_admin_user_index') }}">{{ 'Utilisateurs'|trans }}</a></li>
+	<li>{{ user.firstName }} {{ user.lastName }}</li>
+{% endblock %}
+
+{% block admin_body %}
+<div id="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-table"></i> {{ user.firstName }} {{ user.lastName }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget jarviswidget-color-blueDark">
+					<header>
+						<span class="widget-icon"><i class="fa fa-table"></i></span>
+						<h2>Propiétés de {{ user.firstName }} {{ user.lastName }}</h2>
+					</header>
+					<div>
+						<div class="widget-body">
+							<ul>
+							    <li>Id: {{user.id}}</li>
+							    <li>Clé de sécurité: {{user.securityKey}}</li>
+							    <li>Prénom: {{user.firstName}}</li>
+							    <li>Nom: {{user.lastName}}</li>
+							    <li>Société: {{user.company}}</li>
+							    <li>Tel1: {{user.phoneNumber1}}</li>
+							    <li>Tel2: {{user.phoneNumber2}}</li>
+							    <li>Adresse: {{user.address}}</li>
+							    <li>Date de création: {{ user.created | date("d/m/Y H:i") }}</li>
+							    <li>Date de modification: {{ user.modified | date("d/m/Y H:i") }}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget jarviswidget-color-blueDark">
+					<header>
+						<span class="widget-icon"><i class="fa fa-table"></i></span>
+						<h2>Points de vente</h2>
+					</header>
+					<div>
+						<div class="widget-body">
+						    <a href="{{ path('tracker_admin_place_add', {id: user.id}) }}" class="btn btn-labeled btn-primary">
+								<span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>
+								Créer un nouveau point de vente
+							</a>
+							
+							{% for p in user.places %}
+							    <hr />
+							    <h3>{{p.name}} <a href="{{ path('tracker_admin_place_edit', {id: p.id}) }}">(Modifier)</a></h3>
+							    
+							    <h4>Propriétés :</h4>
+							    <ul>
+							        <li>Nom: {{p.name}}</li>
+							        <li>Adresse: {{p.address}}</li>
+							        <li>Date de création: {{ p.created | date("d/m/Y H:i") }}</li>
+							        <li>Date de modification: {{ p.modified | date("d/m/Y H:i") }}</li>
+							        <li>Type: {{ p.typeName }}</li>
+							    </ul>
+							    
+							    <h4>Configurations :</h4>
+							    <ul>
+    							    {% for c in p.configurations %}
+    							        <li>
+    							            {{c.configuration.name}} : {{c.content}} 
+    							            (<a href="{{path('tracker_admin_place_deleteConfiguration', {id: c.id})}}">Supprimer</a>)
+    							                
+                                        </li>
+    							    {% endfor %}
+    							    <li>
+    							        <a href="#" class="addConfigurationLink">Ajouter une configuration</a>
+    							        <form class="hidden" method="POST" action="{{path('tracker_admin_place_addConfiguration', {id: p.id})}}">
+    							            <select name="configurationId">
+                                                {% for conf in configurations %}
+                                                    <option class="{{conf.contentType}}" value="{{conf.id}}">{{conf.name}} ({{conf.description}})</option>
+    							                {% endfor %}
+    							            </select>
+    							            <input type="text" placeholder="Valeur" name="content" />
+    							            <input type="submit" class="btn btn-primary btn-xs"/>
+    							        </form>
+    							    </li>
+							    </ul>
+							    
+							    <h4>Liste des boxes :<a href="{{ path('tracker_admin_box_add', {id: p.id}) }}">(Créer une nouvelle box)</a></h4>
+						        {% for b in p.boxes %}
+						            <h5>{{b.name}} <a href="{{ path('tracker_admin_box_edit', {id: b.id}) }}">(Modifier)</a></h5>
+						            <ul>
+						                <li>Numéro de série: {{b.serialNumber}}</li>
+						                <li>Version: {{b.version}}</li>
+						                <li>Date de création: {{ b.created | date("d/m/Y H:i") }}</li>
+							            <li>Date de modification: {{ b.modified | date("d/m/Y H:i") }}</li>
+						            </ul>
+						        {% endfor %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.addConfigurationLink').on('click', function(event) {
+            event.preventDefault();
+            var form = $(this).next();
+            $(this).hide();
+            form.show();
+        });
+    });
+</script>
+{% endblock %}

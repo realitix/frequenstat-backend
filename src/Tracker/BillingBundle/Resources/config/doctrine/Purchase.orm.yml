@@ -1,0 +1,26 @@
+Tracker\BillingBundle\Entity\Purchase:
+    type: entity
+    table: purchase
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        status:
+            type: smallint
+        invoice:
+            type: string
+            length: 255
+        created:
+            type: datetime
+            
+    manyToOne:
+        user:
+            targetEntity: \Tracker\UserBundle\Entity\User
+        option:
+            targetEntity: \Tracker\BillingBundle\Entity\Option
+            
+    lifecycleCallbacks:
+        prePersist: [prePersist]

@@ -1,0 +1,23 @@
+Tracker\CaptureBundle\Entity\Capture3d:
+    type: entity
+    table: capture_3d
+    repositoryClass: Tracker\CaptureBundle\Entity\Capture3dRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateCapture:
+            type: datetime
+            column: date_capture
+        position:
+            type: point
+
+    manyToOne:
+        place: 
+            targetEntity: \Tracker\PlaceBundle\Entity\Place
+        station: 
+            targetEntity: \Tracker\StationBundle\Entity\Station
+

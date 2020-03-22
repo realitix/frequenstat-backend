@@ -1,0 +1,43 @@
+tracker_admin_place_testEditor:
+    pattern:  /test-editor
+    defaults: { _controller: TrackerAdminBundle:Place:testEditor }
+
+tracker_admin_place_testEditorIFrame:
+    pattern:  /test-editor-iframe
+    defaults: { _controller: TrackerAdminBundle:Place:testEditorIFrame }
+
+tracker_admin_place_add:
+    pattern:  /add/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:add }
+    requirements:
+        id: \d+
+
+tracker_admin_place_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:edit }
+    requirements:
+        id: \d+
+
+tracker_admin_box_add:
+    pattern:  box/add/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:addBox }
+    requirements:
+        id: \d+
+
+tracker_admin_box_edit:
+    pattern:  box/edit/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:editBox }
+    requirements:
+        id: \d+
+
+tracker_admin_place_addConfiguration:
+    pattern:  /addConfiguration/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:addConfiguration }
+    requirements:
+        id: \d+
+
+tracker_admin_place_deleteConfiguration:
+    pattern:  /deleteConfiguration/{id}
+    defaults: { _controller: TrackerAdminBundle:Place:deleteConfiguration }
+    requirements:
+        id: \d+

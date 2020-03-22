@@ -1,0 +1,22 @@
+Tracker\BoxBundle\Entity\Configuration:
+    type: entity
+    table: box_configuration
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+            nullable: true
+        contentType:
+            type: string
+            length: 255
+            column: content_type
+    lifecycleCallbacks: {  }

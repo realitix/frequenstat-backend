@@ -1,0 +1,5 @@
+tracker_place_place_change:
+    pattern:  /change/{id}
+    defaults: { _controller: TrackerPlaceBundle:Place:change }
+    requirements:
+        id: \d+

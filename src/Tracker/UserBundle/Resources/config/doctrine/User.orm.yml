@@ -1,0 +1,51 @@
+Tracker\UserBundle\Entity\User:
+    type: entity
+    table: users
+    repositoryClass: Tracker\UserBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstName:
+            type: string
+            length: 255
+            column: firstname
+        lastName:
+            type: string
+            length: 255
+            column: lastname
+        company:
+            type: string
+            length: 255
+        phoneNumber1:
+            type: string
+            length: 20
+            column: phonenumber1
+        phoneNumber2:
+            type: string
+            length: 20
+            column: phonenumber2
+            nullable: true
+        address:
+            type: text
+            nullable: true
+        securityKey:
+            type: string
+            length: 255
+            column: securitykey
+        created:
+            type: datetime
+        modified:
+            type: datetime
+
+    oneToMany:
+        places:
+            targetEntity: \Tracker\PlaceBundle\Entity\Place
+            mappedBy: user
+
+    lifecycleCallbacks:
+        prePersist: [prePersist]
+        preUpdate: [preUpdate]

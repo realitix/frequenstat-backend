@@ -1,0 +1,3 @@
+tracker_page_exportation_export:
+    pattern:  /export
+    defaults: { _controller: TrackerPageBundle:Exportation:export }

@@ -1,0 +1,92 @@
+{% extends "TrackerAdminBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('tracker_page_dashboard') }}">{{ 'Accueil'|trans }}</a></li>
+	<li><a href="{{ path('tracker_admin_user_index') }}">{{ 'Utilisateurs'|trans }}</a></li>
+	<li>{{ 'Création'|trans }}</li>
+{% endblock %}
+
+{% block admin_body %}
+<div id="content">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-table"></i> {{ 'Utilisateurs'|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid" class="">
+		<div class="row">
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jarviswidget">
+					<header>
+						<span class="widget-icon"><i class="fa fa-edit"></i></span>
+						<h2>Création d'un utilisateur</h2>
+					</header>
+					<div>
+    					<div class="widget-body no-padding">
+                            {% if not form.vars.valid %}
+                                <div class="alert alert-danger">
+                                    <button class="close"> x </button>
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>Une erreur est survenue!</strong>
+                                    {{ form_errors(form) }}
+                                </div>
+                            {% endif %}
+                            <form class="smart-form" method="post">
+                                <fieldset>
+                                    <section>
+                                        <label class="input">
+                                            {{ form_widget(form.email) }}
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input"> 
+                                            {{ form_widget(form.firstName) }}
+                                            <i></i>
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input"> 
+                                            {{ form_widget(form.lastName) }}
+                                            <i></i>
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input"> 
+                                            {{ form_widget(form.company) }}
+                                            <i></i>
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input"> 
+                                            {{ form_widget(form.phoneNumber1) }}
+                                            <i></i>
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="input"> 
+                                            {{ form_widget(form.phoneNumber2) }}
+                                            <i></i>
+                                        </label>
+                                    </section>
+                                    <section>
+                                        <label class="textarea">
+                                            {{ form_widget(form.address) }}
+                                        </label>
+                                    </section>
+                                </fieldset>
+                                
+                                {{ form_rest(form) }}
+                                
+                                <footer>
+                                    <button class="btn btn-primary" type="submit">Valider</button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+			</article>
+		</div>
+	</section>
+</div>
+{% endblock %}

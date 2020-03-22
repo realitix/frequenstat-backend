@@ -1,0 +1,70 @@
+{% extends "TrackerPageBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li>{{ 'Accueil'|trans }}</li><li>{{ "Vue d'ensemble"|trans }}</li>
+{% endblock %}
+
+{% block page_body %}
+<div id="content">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> {{ "Vue d'ensemble"|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<section id="widget-grid">
+
+		<div class="row">
+			<article class="col-sm-12">
+				<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+					<header>
+						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+						<h2>Bienvenue {{user.firstName}} {{user.lastName}}</h2>
+					</header>
+
+					<div>
+						<div class="widget-body">
+							<p>
+								Vous trouverez ici les informations récapitulatives sur tous vos points de ventes.
+								Ci dessous les informations générales puis les informations détaillées.
+							</p>
+							<ul>
+								<li>Etat général: Aucun problème</li>
+								<li>Nombre de Smartphones détectés: {{global.stations}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+		
+		<div class="row">
+			{% for p in places %}
+				<article class="col-sm-6">
+					<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+						<header>
+							<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+							<h2>Point de vente: {{p.name}}</h2>
+						</header>
+	
+						<div>
+							<div class="widget-body">
+								<ul>
+									<li>Etat : Inconnu</li>
+									<li>Dernière mise à jour : {{p.modified|date('d/m/Y à H:i')}}</li>
+									<li>Nombre de Smartphones détectés: {{p.stations}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</article>
+			{% endfor %}
+		</div>
+		
+	</section>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

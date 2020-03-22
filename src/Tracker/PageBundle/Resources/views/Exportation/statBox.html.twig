@@ -1,0 +1,128 @@
+{% extends "TrackerPageBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li>{{ 'Accueil'|trans }}</li><li>{{ "Exportation"|trans }}</li>
+{% endblock %}
+
+{% block page_body %}
+<div id="content">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> {{ "Exportation"|trans }} </span></h1>
+		</div>
+	</div>
+	
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="well">
+                <h1>Sélectionner les périodes à exporter</h1>
+    	        <form id="formDates" class="smart-form" method="GET">
+    	            <header>Sélection des intervalles</header>
+    	            <fieldset>
+						<div class="row">
+							<section class="col col-2">
+								<label class="label">Type de fichier</label>
+								<label class="select">
+									<select name="export_type">
+									    <option value="Excel2007">Fichier Excel 2007 (.xlsx)</option>
+										<option value="Excel5">Fichier Excel 5 (.xls)</option>
+										<option value="CSV">Fichier CSV</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+							<section class="col col-2">
+								<label class="label">Intervalle de découpage</label>
+								<label class="select">
+									<select name="interval_type">
+									    <option value="">Automatique</option>
+									    <option value="minute">Minute</option>
+										<option value="hour">Heure</option>
+										<option value="day">Jour</option>
+										<option value="month">Mois</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+						</div>
+					</fieldset>
+					{% for d in dates %}
+						<fieldset>
+							<div class="row">
+								<section class="col col-6">
+									<label class="input">
+										<input class="datetimepicker" placeholder="Début" type="text" name="begin[]" value="{{d.begin}}" />
+									</label>
+								</section>
+								<section class="col col-6">
+									<label class="input">
+										<input class="datetimepicker" placeholder="Fin" type="text" name="end[]" value="{{d.end}}" />
+									</label>
+								</section>
+							</div>
+						</fieldset>
+					{% else %}
+						<fieldset>
+							<div class="row">
+								<section class="col col-6">
+									<label class="input">
+										<input class="datetimepicker" placeholder="Début" type="text" name="begin[]" />
+									</label>
+								</section>
+								<section class="col col-6">
+									<label class="input">
+										<input class="datetimepicker" placeholder="Fin" type="text" name="end[]" />
+									</label>
+								</section>
+							</div>
+						</fieldset>
+					{% endfor %}
+
+    				<footer>
+    				    <input type="submit" class="btn btn-primary pull-left" value="Valider" />
+    				    <a href="#" id="buttonAddDate" class="btn btn-primary pull-left">Ajouter un intervalle</a>
+    				</footer>
+    	        </form>
+            </div>
+
+            {% if not validDates %}
+				<div class="alert alert-danger fade in">
+					<i class="fa-fw fa fa-times"></i>
+					<strong>Erreur : </strong> Dates invalides 
+				</div>
+			{% endif %}
+
+			{% if not hasCapture %}
+				<div class="alert alert-danger fade in">
+					<i class="fa-fw fa fa-times"></i>
+					<strong>Erreur : </strong> Aucun enregistrement dans l'intervalle 
+				</div>
+			{% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#buttonAddDate').on('click', function(e) {
+        	e.preventDefault();
+        	var fs = $('#formDates fieldset:last-of-type');
+        	var fs2 = fs.clone();
+        	fs.after(fs2);
+        	
+        	$('.datetimepicker').datetimepicker({
+        		lang:'fr',
+        		format: 'Y-m-d H:i'
+        	});
+        	$('.datetimepicker').attr("autocomplete", "off");
+        });
+        
+    });
+</script>
+
+{% endblock %}

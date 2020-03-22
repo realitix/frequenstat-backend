@@ -1,0 +1,22 @@
+Tracker\BillingBundle\Entity\Offer:
+    type: entity
+    table: offer
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: text
+            
+    oneToMany:
+        options:
+            targetEntity: \Tracker\BillingBundle\Entity\Option
+            mappedBy: offer
+    
+    lifecycleCallbacks: {  }

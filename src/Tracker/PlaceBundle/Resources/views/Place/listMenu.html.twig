@@ -1,0 +1,21 @@
+{% if not place %}
+    <span class="label">Aucun point de vente</span>
+{% else %}
+    {% set arrow="" %}
+    {% if places|length >= 2 %}
+        {% set arrow='<i class="fa fa-angle-down"></i>' %}
+    {% endif %}
+    
+    <span class="label">Point de vente:</span>
+    <span id="project-selector" class="popover-trigger-element dropdown-toggle" data-toggle="dropdown">{{place.name}} {{arrow|raw}}</span>
+    
+    {% if places|length >= 2 %}
+        <ul class="dropdown-menu">
+            {% for p in places if p.id != place.id %}
+            	<li>
+            		<a href="{{ path('tracker_place_place_change', {id: p.id}) }}">{{ p.name }}</a>
+            	</li>
+        	{% endfor %}
+        </ul>
+    {% endif %}
+{% endif %}

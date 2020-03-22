@@ -1,0 +1,62 @@
+{% extends "TrackerPageBundle::layout.html.twig" %}
+
+{% block breadcrumb %}
+	<li>Accueil</li><li>Temps réel</li>
+{% endblock %}
+
+{% block page_body %}
+<div id="content">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Temps réel </span></h1>
+		</div>
+	</div>
+	
+	{% if not placeOk %}
+	    <div class="alert alert-warning">
+	        <i class="fa fa-fw fa-warning"></i>
+	        <strong>Attention</strong>
+	        Ce point de vente ne permet pas l'affichage en temps réel.
+	    </div>
+	{% elseif not confOk %}
+	    <div class="alert alert-warning">
+	        <i class="fa fa-fw fa-warning"></i>
+	        <strong>Attention</strong>
+	        Vous ne possédez pas l'option temps réel pour ce point de vente.
+	    </div>
+	{% else %}
+    	<section>
+    		<div class="row">
+    			<article class="col-sm-12">
+    				<div class="jarviswidget" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+    					<header>
+    						<span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
+    						<h2>Affichage temps réel</h2>
+    					</header>
+    					<div class="widget-body">
+    						<div class="tab-content">
+    							<div class="no-padding-bottom">
+    								<div class="row no-space">
+    									<div class="col-xs-12">
+    										<div id="flot-placeholder-realtime" class="chart-large txt-color-blue"></div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</article>
+    		</div>
+    	</section>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+	$("#flot-placeholder-realtime").frequenStatChartRealtime({
+	    captureUrl: '{{path('tracker_ajax_capture_getLastMinute', {id: place.id})}}'
+	});
+</script>
+{% endblock %}

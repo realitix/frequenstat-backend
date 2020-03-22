@@ -1,0 +1,36 @@
+Tracker\PlaceBundle\Entity\Box:
+    type: entity
+    table: box
+    repositoryClass: Tracker\PlaceBundle\Entity\BoxRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: '40'
+        serialNumber:
+            type: string
+            length: '255'
+            column: serial_number
+        version:
+            type: smallint
+        position:
+            type: point
+            nullable: true
+        created:
+            type: datetime
+        modified:
+            type: datetime
+
+    manyToOne:
+        place:
+            targetEntity: \Tracker\PlaceBundle\Entity\Place
+            inversedBy: boxes
+
+    lifecycleCallbacks:
+        prePersist: [prePersist]
+        preUpdate: [preUpdate]

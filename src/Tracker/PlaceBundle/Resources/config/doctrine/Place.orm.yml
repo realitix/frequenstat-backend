@@ -1,0 +1,44 @@
+Tracker\PlaceBundle\Entity\Place:
+    type: entity
+    table: place
+    repositoryClass: Tracker\PlaceBundle\Entity\PlaceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: '100'
+        address:
+            type: text
+            nullable: true
+        placeType:
+            type: smallint
+            column: place_type
+            options:
+                comment: '1=StatBox 2=StatBox3d 3=Implantation 4=Foule'
+        created:
+            type: datetime
+        modified:
+            type: datetime
+            
+    manyToOne:
+        user:
+            targetEntity: \Tracker\UserBundle\Entity\User
+            inversedBy: places
+    
+    oneToMany:
+        boxes:
+            targetEntity: \Tracker\PlaceBundle\Entity\Box
+            mappedBy: place
+        configurations:
+            targetEntity: \Tracker\PlaceBundle\Entity\PlaceConfiguration
+            mappedBy: place
+    
+    
+    lifecycleCallbacks:
+        prePersist: [prePersist]
+        preUpdate: [preUpdate]

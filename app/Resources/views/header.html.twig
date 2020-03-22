@@ -1,0 +1,20 @@
+<!-- HEADER -->
+<header id="header">
+	<div id="logo-group">
+		<span id="logo"> <img src="{{asset('img/logo.png')}}" alt="FrequenStat"> </span>
+	</div>
+
+	<div id="project-context">
+		{{ render(controller("TrackerPlaceBundle:Place:listMenu", {user: app.user})) }}
+	</div>
+
+	<div class="pull-right">
+		<div id="hide-menu" class="btn-header pull-right">
+			<span> <a href="#" onclick="return false;" title="Cacher le menu"><i class="fa fa-reorder"></i></a> </span>
+		</div>
+
+		<div id="logout" class="btn-header transparent pull-right">
+			<span> <a href="{{ path('fos_user_security_logout') }}" title="Se déconnecter"><i class="fa fa-sign-out"></i></a> </span>
+		</div>
+	</div>
+</header>

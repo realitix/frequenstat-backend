@@ -1,0 +1,39 @@
+Tracker\TicketBundle\Entity\Ticket:
+    type: entity
+    table: ticket
+    repositoryClass: Tracker\TicketBundle\Entity\TicketRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: smallint
+            options:
+                comment: '1=Commercial, 2=Technique'
+        name:
+            type: string
+            length: '255'
+        description:
+            type: text
+        created:
+            type: datetime
+        closed:
+            type: datetime
+            nullable: true
+    
+    manyToOne:
+        user:
+            targetEntity: \Tracker\UserBundle\Entity\User
+            
+    oneToMany:
+        messages:
+            targetEntity: \Tracker\TicketBundle\Entity\Message
+            mappedBy: ticket
+            orderBy:
+                created: ASC
+            
+    lifecycleCallbacks:
+        prePersist: [prePersist]

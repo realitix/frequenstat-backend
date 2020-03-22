@@ -1,0 +1,25 @@
+Tracker\TicketBundle\Entity\Message:
+    type: entity
+    table: message
+    repositoryClass: Tracker\TicketBundle\Entity\MessageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        content:
+            type: text
+        created:
+            type: datetime
+            
+    manyToOne:
+        user:
+            targetEntity: \Tracker\UserBundle\Entity\User
+        ticket:
+            targetEntity: \Tracker\TicketBundle\Entity\Ticket
+            inversedBy: messages
+            
+    lifecycleCallbacks:
+        prePersist: [prePersist]

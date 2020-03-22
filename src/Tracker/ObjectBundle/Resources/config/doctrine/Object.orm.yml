@@ -1,0 +1,24 @@
+Tracker\ObjectBundle\Entity\Object:
+    type: entity
+    table: object
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            length: 255
+        model:
+            type: text
+        created:
+            type: datetime
+    
+    manyToOne:
+        room:
+            targetEntity: Tracker\PlaceBundle\Entity\Room
+        
+    lifecycleCallbacks:
+        prePersist: [prePersist]

@@ -1,0 +1,3 @@
+rar_x_user_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: RarXUserBundle:Default:index }

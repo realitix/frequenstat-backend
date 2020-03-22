@@ -1,0 +1,11 @@
+tracker_api_v1_api_addCapture:
+    pattern:  /captures
+    defaults: { _controller: TrackerApiBundle:Api:addCapture }
+    requirements:
+        _method: POST
+        
+tracker_api_v1_api_getSession:
+    pattern:  /session/{serialNumber}
+    defaults: { _controller: TrackerApiBundle:Api:getSession }
+    requirements:
+        _method: GET
